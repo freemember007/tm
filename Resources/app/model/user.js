@@ -1,0 +1,3 @@
+mvc.model.user = (function(){
+	
+})();
