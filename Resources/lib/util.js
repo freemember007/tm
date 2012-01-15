@@ -13,7 +13,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: "freemember007@gmail.com", password: "secret"}, function(){
+		send('api/login', {email: email, password: password}, function(){
 			var data = JSON.parse(this.responseText);
 			if(data.type == "success"){
 				Titanium.App.Properties.setString("userid", data.id + '');
