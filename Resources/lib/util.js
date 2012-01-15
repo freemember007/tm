@@ -11,7 +11,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: email, password: password}, function(){
+		send('api/login', {email: "lnz013@gmail.com", password: "secret"}, function(){
 			callback(JSON.parse(this.responseText));
 		});
 	}
@@ -28,9 +28,27 @@ util.net = (function(){
 		});
 	}
 	
+	function uploadCameraPhoto(){
+		Ti.Media.showCamera({
+			success: function(e){
+		        Ti.Media.hideCamera();
+				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
+					var data = JSON.parse(this.responseText);
+					mvc.view.partial.blogList.setImages(data.images);
+					mvc.view.mainList.reload();
+				})
+			},
+			error: function(){
+				alert("error");
+			},
+			autohide:false
+		});
+	}
+	
 	return {
 		login: login,
-		uploadPhoto: uploadPhoto
+		uploadPhoto: uploadPhoto,
+		uploadCameraPhoto: uploadCameraPhoto
 	}
 	
 })();

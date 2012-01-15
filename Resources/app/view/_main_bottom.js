@@ -32,7 +32,15 @@ mvc.view.partial.mainBottom = (function(){
 	});
 	
 	photo.addEventListener('click', function(){
-		util.net.uploadPhoto()
+		util.net.uploadPhoto();
+	});
+	
+	camera.addEventListener('click', function(){
+		util.net.uploadCameraPhoto();
+	});
+	
+	text.addEventListener('click', function(){
+		mvc.view.publish_blog.init();
 	});
 
 	bottomView.add(camera);
