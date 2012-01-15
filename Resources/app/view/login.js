@@ -26,7 +26,6 @@ mvc.view.login = (function(){
 		
 		login.addEventListener('click', function(){
 			util.net.login(usernameView.value(), passwordView.value());
-			
 		});
 		
 		top_view.add(login);

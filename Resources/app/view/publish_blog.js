@@ -46,7 +46,9 @@ mvc.view.publishBlog = (function(){
 		});
 		
 		publish.addEventListener('click', function(){
-			
+			util.net.publishText(textarea.value);
+			textarea.blur();
+			Ani.close_view_slide(win, 'bottom');
 		});
 		
 		topView.add(back);
@@ -67,9 +69,6 @@ mvc.view.publishBlog = (function(){
 		win.add(scrollView);
 		
 		return win;
-	}
-	
-	function init(){
 	}
 	
 	function show(){

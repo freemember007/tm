@@ -1,21 +1,23 @@
 util.net = (function(){
 	
+	var sitePath = 'http://116.255.187.252/';
+	
 	function send(url, data, onload){
 		var xhr = Titanium.Network.createHTTPClient();
         xhr.onload = onload;
         xhr.onerror = function(){
 	        Ti.API.info(e.error);
         };
-        xhr.open('POST','http://localhost:3000/' + url);
+        xhr.open('POST',sitePath + url);
         xhr.send(data);
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: "lnz013@gmail.com", password: "secret"}, function(){
+		send('api/login', {email: "freemember007@gmail.com", password: "secret"}, function(){
 			var data = JSON.parse(this.responseText);
 			if(data.type == "success"){
-				data.id = Titanium.App.Properties.setString("userid", data.id + '');
-				mvc.controller.mainList.index(data.images);
+				Titanium.App.Properties.setString("userid", data.id + '');
+				mvc.controller.mainList.index(data.items);
 			}else{
 				alert("错误的邮箱名或者密码");
 			}
@@ -25,7 +27,7 @@ util.net = (function(){
 	function publishText(content){
 		send('api/publish_blog', {content: content, id:Titanium.App.Properties.getString("userid")}, function(){
 			var data = JSON.parse(this.responseText);
-			mvc.view.partial.blogList.addBlog(null, content);
+			mvc.view.partial.blogList.addBlog(data.item);
 			mvc.view.mainList.reload();
 		})
 	}
@@ -35,7 +37,7 @@ util.net = (function(){
 			success: function(e){
 				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
 					var data = JSON.parse(this.responseText);
-					mvc.view.partial.blogList.addBlog(data.img, null);
+					mvc.view.partial.blogList.addBlog(data.item);
 					mvc.view.mainList.reload();
 				})
 			}
@@ -48,7 +50,7 @@ util.net = (function(){
 		        Ti.Media.hideCamera();
 				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
 					var data = JSON.parse(this.responseText);
-					mvc.view.partial.blogList.addBlog(data.img, null);
+					mvc.view.partial.blogList.addBlog(data.item);
 					mvc.view.mainList.reload();
 				})
 			},
@@ -62,7 +64,8 @@ util.net = (function(){
 	return {
 		login: login,
 		uploadPhoto: uploadPhoto,
-		uploadCameraPhoto: uploadCameraPhoto
+		uploadCameraPhoto: uploadCameraPhoto,
+		publishText: publishText
 	}
 	
 })();

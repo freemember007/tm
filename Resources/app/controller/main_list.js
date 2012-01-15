@@ -1,7 +1,7 @@
 mvc.controller.mainList = (function(){
 	
-	function index(images){
-		mvc.view.partial.blogList.setImages(images);
+	function index(items){
+		mvc.view.partial.blogList.setItems(items);
 		mvc.view.mainList.init();
 	}
 	

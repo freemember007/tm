@@ -45,7 +45,7 @@ mvc.view.partial.blogList = (function(){
 			top: 5,
 			bottom: 10,
 			height: 'auto',
-			width: 259,
+			width: 250,
 			backgroundColor: '#f9f9f9',
 			borderRadius: 6,
 			borderWidth: 2,
@@ -53,26 +53,28 @@ mvc.view.partial.blogList = (function(){
 		});
 		
 		var image, comment;
-	
-		if(img != null){
+		if(img != 'null'){
 			image = Ti.UI.createImageView({
 				image: img,
 				top: 5,
 				left: 5,
-				height: 249,
-				width: 249
+				height: 239
 			});
 			commentView.add(image);
 		}
-		if(content != null){
+		if(content != 'null'){
+			var top = 10;
+			if(img != 'null'){
+				top = image.height + 15;
+			}
 			comment = Ti.UI.createLabel({
 				color: '#222',
-				font: {fontSize: 12, fontWeight: 'normal', fontFamily:'Arial'},
-				top: image.height + 10,
+				font: {fontSize: 14, fontWeight: 'normal'},
+				top: top,
 				left: 5,
-				bottom: 5,
+				bottom: 10,
 				height: 'auto',
-				width: 259,
+				width: 242,
 				text: content,
 			});
 			commentView.add(comment);
@@ -100,7 +102,6 @@ mvc.view.partial.blogList = (function(){
 			bottom: 0
 		});
 		
-		//row.height = commentView.height + 45;
 		row.add(commentView);
 		row.add(arrow);
 		//row.add(share);
@@ -131,18 +132,25 @@ mvc.view.partial.blogList = (function(){
 	function data(){
 		var data =[];
 		for(var i = 0; i < dataSource.length; i++){
-			data.push(createTr(dataSource[i].image.url, dataSource[i].content, 12, 31));
+			data.push(createTr(dataSource[i].image, dataSource[i].content, dataSource[i].month, dataSource[i].day));
 		}
 		return data;
 	}
 	
-	function addBlog(img, content){
-		data.unshift(createTr(img, content, 12, 31));
+	function setItems(items){
+		for(var i = 0; i < items.length; i++){
+			dataSource.push({image:items[i].image, content:items[i].content, month:items[i].month, day:items[i].day});
+		}
+	}
+	
+	function addBlog(item){
+		dataSource.unshift({image:item.image, content:item.content, month:item.month, day:item.day});
 	}
 	
 	return {
 		data: data,
-		addBlog: addBlog
+		addBlog: addBlog,
+		setItems: setItems
 	};
 	
 })();
