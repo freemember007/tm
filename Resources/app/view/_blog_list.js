@@ -33,38 +33,13 @@ mvc.view.partial.blogList = (function(){
 		return view;
 	};
 	
-	function createRow(img){
+	function createRow(img, content){
 		var row = Ti.UI.createTableViewRow({
 			height: 'auto',
 			backgroundColor: '#f0f0f0'
 		});
 		row.selectedBackgroundColor = '#f0f0f0';
-	
-		var image = Ti.UI.createImageView({
-			image: img,
-			top: 5,
-			left: 5,
-			height: 249,
-			width: 249
-		});
-		var comment = Ti.UI.createLabel({
-			color: '#222',
-			font: {fontSize: 12, fontWeight: 'normal', fontFamily:'Arial'},
-			top: image.height + 10,
-			left: 5,
-			bottom: 5,
-			height: 'auto',
-			width: 259,
-			text:'吴彦祖',
-		});
-		var arrow = Ti.UI.createView({
-			top: 25,
-			left: 50,
-			height: 13,
-			width: 6,
-			backgroundImage: "/assets/arrow.png",
-			zIndex: 100
-		});
+		
 		var commentView = Ti.UI.createView({
 			left: 56,
 			top: 5,
@@ -75,6 +50,40 @@ mvc.view.partial.blogList = (function(){
 			borderRadius: 6,
 			borderWidth: 2,
 			borderColor: '#fff'
+		});
+		
+		var image, comment;
+	
+		if(img != null){
+			image = Ti.UI.createImageView({
+				image: img,
+				top: 5,
+				left: 5,
+				height: 249,
+				width: 249
+			});
+			commentView.add(image);
+		}
+		if(content != null){
+			comment = Ti.UI.createLabel({
+				color: '#222',
+				font: {fontSize: 12, fontWeight: 'normal', fontFamily:'Arial'},
+				top: image.height + 10,
+				left: 5,
+				bottom: 5,
+				height: 'auto',
+				width: 259,
+				text: content,
+			});
+			commentView.add(comment);
+		}
+		var arrow = Ti.UI.createView({
+			top: 25,
+			left: 50,
+			height: 13,
+			width: 6,
+			backgroundImage: "/assets/arrow.png",
+			zIndex: 100
 		});
 		var share = Ti.UI.createLabel({
 			backgroundImage: "/assets/share.png",
@@ -90,8 +99,7 @@ mvc.view.partial.blogList = (function(){
 			right: 10,
 			bottom: 0
 		});
-		commentView.add(image);
-		commentView.add(comment);
+		
 		//row.height = commentView.height + 45;
 		row.add(commentView);
 		row.add(arrow);
@@ -100,9 +108,9 @@ mvc.view.partial.blogList = (function(){
 		return row;
 	};
 	
-	function createTr(img, month, day){
+	function createTr(img, content, month, day){
 		var dateView = dateLabelView(month, day);
-		var row = createRow(img);
+		var row = createRow(img, content);
 		row.add(dateView);
 		//var header = Ti.UI.createView({
 		//	height: 60,
@@ -118,23 +126,23 @@ mvc.view.partial.blogList = (function(){
 		return row;
 	}
 	
-	var images = [];
+	var dataSource = []
 	
 	function data(){
 		var data =[];
-		for(var i = 0; i < images.length; i++){
-			data.push(createTr(images[i].url, 12, 31));
+		for(var i = 0; i < dataSource.length; i++){
+			data.push(createTr(dataSource[i].image.url, dataSource[i].content, 12, 31));
 		}
 		return data;
 	}
 	
-	function setImages(imgs){
-		images = imgs;
+	function addBlog(img, content){
+		data.unshift(createTr(img, content, 12, 31));
 	}
 	
 	return {
 		data: data,
-		setImages: setImages
+		addBlog: addBlog
 	};
 	
 })();

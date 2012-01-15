@@ -1,4 +1,6 @@
-mvc.view.publish_blog = (function(){
+var Ani = require("/lib/ani");
+
+mvc.view.publishBlog = (function(){
 	
 	var win = Ti.UI.createView({
 		left: 0,
@@ -7,6 +9,13 @@ mvc.view.publish_blog = (function(){
 		height: 460,
 		backgroundColor: '#fafafa',
 		zIndex: 2000
+	});
+	
+	var textarea = Ti.UI.createTextArea({
+		top: 0,
+		left: 0,
+		width: 320,
+		editable:true
 	});
 	
 	function top(){
@@ -32,7 +41,12 @@ mvc.view.publish_blog = (function(){
 		});
 		
 		back.addEventListener('click', function(){
-			Ani.close_win_slide(Ti.UI.currentwin, 'bottom');
+			textarea.blur();
+			Ani.close_view_slide(win, 'bottom');
+		});
+		
+		publish.addEventListener('click', function(){
+			
 		});
 		
 		topView.add(back);
@@ -41,13 +55,6 @@ mvc.view.publish_blog = (function(){
 	}
 	
 	function content(){
-		var textarea = Ti.UI.createTextArea({
-			top: 0,
-			left: 0,
-			width: 320,
-			editable:true
-		});
-		
 		var scrollView = Ti.UI.createScrollView({
 			top: 45,
 			left: 0,
@@ -59,17 +66,20 @@ mvc.view.publish_blog = (function(){
 		win.add(top());
 		win.add(scrollView);
 		
-		win.addEventListener('focus', function(){
-			textarea.focus();
-		});
+		return win;
 	}
 	
 	function init(){
-		win.open();
+	}
+	
+	function show(){
+		Ani.open_view_slide(win, 'top');
+		textarea.focus();
 	}
 	
 	return {
-		init: init
+		content: content,
+		show: show
 	}
 	
 })();

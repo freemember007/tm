@@ -25,14 +25,7 @@ mvc.view.login = (function(){
 		});
 		
 		login.addEventListener('click', function(){
-			util.net.login(usernameView.value(), passwordView.value(), function(data){
-				if(data.type == "success"){
-					data.id = Titanium.App.Properties.setString("userid", data.id + '');
-					mvc.controller.mainList.index(data.images);
-				}else{
-					alert("错误的邮箱名或者密码");
-				}
-			});
+			util.net.login(usernameView.value(), passwordView.value());
 			
 		});
 		

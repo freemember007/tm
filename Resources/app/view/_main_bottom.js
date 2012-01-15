@@ -40,7 +40,7 @@ mvc.view.partial.mainBottom = (function(){
 	});
 	
 	text.addEventListener('click', function(){
-		mvc.view.publish_blog.init();
+		mvc.view.publishBlog.show();
 	});
 
 	bottomView.add(camera);

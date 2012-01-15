@@ -6,14 +6,28 @@ util.net = (function(){
         xhr.onerror = function(){
 	        Ti.API.info(e.error);
         };
-        xhr.open('POST','http://116.255.187.252/' + url);
+        xhr.open('POST','http://localhost:3000/' + url);
         xhr.send(data);
 	}
 	
 	function login(email, password, callback){
 		send('api/login', {email: "lnz013@gmail.com", password: "secret"}, function(){
-			callback(JSON.parse(this.responseText));
+			var data = JSON.parse(this.responseText);
+			if(data.type == "success"){
+				data.id = Titanium.App.Properties.setString("userid", data.id + '');
+				mvc.controller.mainList.index(data.images);
+			}else{
+				alert("错误的邮箱名或者密码");
+			}
 		});
+	}
+	
+	function publishText(content){
+		send('api/publish_blog', {content: content, id:Titanium.App.Properties.getString("userid")}, function(){
+			var data = JSON.parse(this.responseText);
+			mvc.view.partial.blogList.addBlog(null, content);
+			mvc.view.mainList.reload();
+		})
 	}
 	
 	function uploadPhoto(){
@@ -21,7 +35,7 @@ util.net = (function(){
 			success: function(e){
 				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
 					var data = JSON.parse(this.responseText);
-					mvc.view.partial.blogList.setImages(data.images);
+					mvc.view.partial.blogList.addBlog(data.img, null);
 					mvc.view.mainList.reload();
 				})
 			}
@@ -34,7 +48,7 @@ util.net = (function(){
 		        Ti.Media.hideCamera();
 				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
 					var data = JSON.parse(this.responseText);
-					mvc.view.partial.blogList.setImages(data.images);
+					mvc.view.partial.blogList.addBlog(data.img, null);
 					mvc.view.mainList.reload();
 				})
 			},
