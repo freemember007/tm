@@ -18,6 +18,7 @@ require("app/view/_settings");
 require("app/view/_blog_list");
 require("app/view/_photo_list");
 
+require("app/view/publish_photo");
 require("app/view/publish_blog");
 require("app/view/main_list");
 

@@ -13,7 +13,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: email, password: password}, function(){
+		send('api/login', {email: "lnz013@gmail.com", password: "secret"}, function(){
 			var data = JSON.parse(this.responseText);
 			if(data.type == "success"){
 				Titanium.App.Properties.setString("userid", data.id + '');
@@ -35,11 +35,7 @@ util.net = (function(){
 	function uploadPhoto(){
 		Ti.Media.openPhotoGallery({
 			success: function(e){
-				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
-					var data = JSON.parse(this.responseText);
-					mvc.view.partial.blogList.addBlog(data.item);
-					mvc.view.mainList.reload();
-				})
+				mvc.view.publishPhoto.show(e);
 			}
 		});
 	}
@@ -48,11 +44,7 @@ util.net = (function(){
 		Ti.Media.showCamera({
 			success: function(e){
 		        Ti.Media.hideCamera();
-				send('api/uploadPhoto', {photo:e.media, id:Titanium.App.Properties.getString("userid")}, function(){
-					var data = JSON.parse(this.responseText);
-					mvc.view.partial.blogList.addBlog(data.item);
-					mvc.view.mainList.reload();
-				})
+				mvc.view.publishPhoto.show(e);
 			},
 			error: function(){
 				alert("error");
@@ -65,7 +57,8 @@ util.net = (function(){
 		login: login,
 		uploadPhoto: uploadPhoto,
 		uploadCameraPhoto: uploadCameraPhoto,
-		publishText: publishText
+		publishText: publishText,
+		send: send
 	}
 	
 })();

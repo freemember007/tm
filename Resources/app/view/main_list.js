@@ -24,6 +24,7 @@ mvc.view.mainList = (function(){
 	listView.add(tableView);
 	listView.add(mvc.view.partial.mainBottom);
 	listView.add(mvc.view.publishBlog.content());
+	listView.add(mvc.view.publishPhoto.content());
 	
 	var windowSlideAnimation;
 	var left = 50;

@@ -1,6 +1,8 @@
 var Ani = require("/lib/ani");
 
-mvc.view.publishBlog = (function(){
+mvc.view.publishPhoto = (function(){
+	
+	var imgSrc;
 	
 	var win = Ti.UI.createView({
 		left: 0,
@@ -11,14 +13,11 @@ mvc.view.publishBlog = (function(){
 		zIndex: 2000
 	});
 	
-	var textarea = Ti.UI.createTextArea({
-		top: 0,
-		left: 0,
-		width: 320,
-		editable:true,
-		font:{
-			fontSize: 14
-		}
+	var imgView = Ti.UI.createImageView({
+		left: 100,
+		top: 10,
+		width: 'auto',
+		height: 'auto'
 	});
 	
 	function top(){
@@ -26,7 +25,7 @@ mvc.view.publishBlog = (function(){
 			top: 0,
 			height: 44,
 			width: 320,
-			backgroundImage: '/assets/publish_text_top_bg.png'
+			backgroundImage: '/assets/publish_photo_top_bg.png'
 		});
 		
 		var back = Ti.UI.createLabel({
@@ -44,13 +43,15 @@ mvc.view.publishBlog = (function(){
 		});
 		
 		back.addEventListener('click', function(){
-			textarea.blur();
 			Ani.close_view_slide(win, 'bottom');
 		});
 		
 		publish.addEventListener('click', function(){
-			util.net.publishText(textarea.value);
-			textarea.blur();
+			util.net.send('api/uploadPhoto', {photo:imgSrc, id:Titanium.App.Properties.getString("userid")}, function(){
+				var data = JSON.parse(this.responseText);
+				mvc.view.partial.blogList.addBlog(data.item);
+				mvc.view.mainList.reload();
+			})
 			Ani.close_view_slide(win, 'bottom');
 		});
 		
@@ -66,7 +67,7 @@ mvc.view.publishBlog = (function(){
 			width: 320,
 			height: '100%'
 		})
-		scrollView.add(textarea);
+		scrollView.add(imgView);
 		
 		win.add(top());
 		win.add(scrollView);
@@ -74,9 +75,26 @@ mvc.view.publishBlog = (function(){
 		return win;
 	}
 	
-	function show(){
+	function computeWidthHeight(width, height){
+		var fw = 120;
+		var r = width / fw;
+		var fh = height / r;
+	}
+
+	function show(e){
+		imgSrc = e.media;
+		imgView.setImage(imgSrc);
+		
+		var w = imgView.size.width;
+		var h = imgView.size.height;
+		
+		Ti.API.info(w + " " + h);
+		
+		imgView.width = 120;
+		imgView.height = h*(120/w);
+		
+		
 		Ani.open_view_slide(win, 'top');
-		textarea.focus();
 	}
 	
 	return {
