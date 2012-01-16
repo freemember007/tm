@@ -2,7 +2,7 @@ var Ani = require("/lib/ani");
 
 mvc.view.publishPhoto = (function(){
 	
-	var imgSrc;
+	var imgSrc, imgDst;
 	
 	var win = Ti.UI.createView({
 		left: 0,
@@ -47,7 +47,7 @@ mvc.view.publishPhoto = (function(){
 		});
 		
 		publish.addEventListener('click', function(){
-			util.net.send('api/uploadPhoto', {photo:imgSrc, id:Titanium.App.Properties.getString("userid")}, function(){
+			util.net.send('api/uploadPhoto', {photo:imgDst, id:Titanium.App.Properties.getString("userid")}, function(){
 				var data = JSON.parse(this.responseText);
 				mvc.view.partial.blogList.addBlog(data.item);
 				mvc.view.mainList.reload();
@@ -81,8 +81,8 @@ mvc.view.publishPhoto = (function(){
 		var fh = height / r;
 	}
 
-	function show(e){
-		imgSrc = e.media;
+	function show(img){
+		imgSrc = img;
 		imgView.setImage(imgSrc);
 		
 		var w = imgView.size.width;
@@ -93,6 +93,15 @@ mvc.view.publishPhoto = (function(){
 		imgView.width = 120;
 		imgView.height = h*(120/w);
 		
+		var dstImgView = Ti.UI.createImageView({
+			left: 0,
+			top: 0,
+			image: imgSrc
+		});
+		dstImgView.width = 800;
+		dstImgView.height = h*(800/w);
+		
+		imgDst = dstImgView.toImage();
 		
 		Ani.open_view_slide(win, 'top');
 	}

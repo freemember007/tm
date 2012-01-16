@@ -13,7 +13,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: "lnz013@gmail.com", password: "secret"}, function(){
+		send('api/login', {email: email, password: password}, function(){
 			var data = JSON.parse(this.responseText);
 			if(data.type == "success"){
 				Titanium.App.Properties.setString("userid", data.id + '');
@@ -35,7 +35,7 @@ util.net = (function(){
 	function uploadPhoto(){
 		Ti.Media.openPhotoGallery({
 			success: function(e){
-				mvc.view.publishPhoto.show(e);
+				mvc.view.publishPhoto.show(e.media);
 			}
 		});
 	}
@@ -44,7 +44,7 @@ util.net = (function(){
 		Ti.Media.showCamera({
 			success: function(e){
 		        Ti.Media.hideCamera();
-				mvc.view.publishPhoto.show(e);
+				mvc.view.publishPhoto.show(e.media);
 			},
 			error: function(){
 				alert("error");
