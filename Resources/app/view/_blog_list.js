@@ -41,9 +41,16 @@ mvc.view.partial.blogList = (function(){
 		});
 		row.selectedBackgroundColor = '#f0f0f0';
 		
-		var commentView = Ti.UI.createView({
+		var rowView = Ti.UI.createView({
 			left: 56,
-			top: 5,
+			top: 0,
+			height: 'auto',
+			width: 250
+		});
+		
+		var commentView = Ti.UI.createView({
+			left: 0,
+			top: 0,
 			bottom: 10,
 			height: 'auto',
 			width: 250,
@@ -85,7 +92,7 @@ mvc.view.partial.blogList = (function(){
 		}
 		var arrow = Ti.UI.createView({
 			top: 25,
-			left: 50,
+			left: -6,
 			height: 13,
 			width: 6,
 			backgroundImage: "/assets/arrow.png",
@@ -106,41 +113,59 @@ mvc.view.partial.blogList = (function(){
 			bottom: 0
 		});
 		
-		row.add(commentView);
-		row.add(arrow);
-		//row.add(share);
-		//row.add(del);
+		rowView.height = commentView.height + 40;
+		
+		rowView.add(commentView);
+		rowView.add(arrow);
+		rowView.add(share);
+		rowView.add(del);
+		
+		row.add(rowView);
 		return row;
 	};
 	
-	var sections = [];
+	var sections = {};
 	
 	function createTr(img, content, month, day){
 		var row = createRow(img, content);
 		
-		var header = Ti.UI.createView({
-			height: 60,
-			width: 320
-		});
-		var dateView = dateLabelView(month, day);
-		header.add(dateView);
-		
-		var section = Ti.UI.createTableViewSection();
-		section.headerView = header;
-		
+		var section = sections[month + "-" + day];
+		if(section == undefined){
+			var header = Ti.UI.createView({
+				height: 60,
+				width: 320
+			});
+			var dateView = dateLabelView(month, day);
+			var bg = Ti.UI.createView({
+				left: 0,
+				top: 0,
+				width: 320,
+				height: 60,
+				backgroundColor: '#aaa',
+				opacity: 0.1
+			});
+			header.add(bg);
+			header.add(dateView);
+			
+			section = Ti.UI.createTableViewSection();
+			section.headerView = header;
+			sections[month + "-" + day]  = section;
+		}
 		section.add(row);
-		
-		sections.push(section);
 	}
 	
 	var dataSource = []
 	
 	function data(){
-		sections = [];
+		sections = {};
 		for(var i = 0; i < dataSource.length; i++){
 			createTr(dataSource[i].image, dataSource[i].content, dataSource[i].month, dataSource[i].day);
 		}
-		return sections;
+		data = [];
+		for(item in sections){
+			data.push(sections[item]);
+		}
+		return data;
 	}
 	
 	function setItems(items){

@@ -43,7 +43,8 @@ var field = function(top, title, passwordMask){
 	
 	return {
 		view: field_view,
-		value: value
+		value: value,
+		field: text_field
 	}
 }
 

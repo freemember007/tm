@@ -1,6 +1,6 @@
 util.net = (function(){
 	
-	var sitePath = 'http://localhost:3000/';
+	var sitePath = 'http://116.255.187.252/';
 	
 	function send(url, data, onload){
 		var xhr = Titanium.Network.createHTTPClient();
@@ -13,7 +13,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: 'lnz013@gmail.com', password: 'secret'}, function(){
+		send('api/login', {email: email, password: password}, function(){
 			var data = JSON.parse(this.responseText);
 			if(data.type == "success"){
 				Titanium.App.Properties.setString("userid", data.id + '');

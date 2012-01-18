@@ -25,6 +25,8 @@ mvc.view.login = (function(){
 		});
 		
 		login.addEventListener('click', function(){
+			usernameView.blur();
+			passwordView.blur();
 			util.net.login(usernameView.value(), passwordView.value());
 		});
 		

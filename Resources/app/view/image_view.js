@@ -25,7 +25,7 @@ mvc.view.imageView = (function(){
 		view.animate({
 			opacity: 1.0,
 			duration: 300
-		})
+		});
 	}
 	
 	return {

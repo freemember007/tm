@@ -18,8 +18,6 @@ mvc.view.publishPhoto = (function(){
 		var w = imgView.size.width;
 		var h = imgView.size.height;
 		
-		Ti.API.info(w + " " + h);
-		
 		imgView.width = 120;
 		imgView.height = h*(120/w);
 		
@@ -76,7 +74,7 @@ mvc.view.publishPhoto = (function(){
 		publish.addEventListener('click',function(){
 			textarea.blur();
 			win.close();
-			util.net.send('api/uploadPhoto', {photo:imgDst, id:Titanium.App.Properties.getString("userid")}, function(){
+			util.net.send('api/uploadPhoto', {photo:imgDst, content:textarea.value, id:Titanium.App.Properties.getString("userid")}, function(){
 				var data = JSON.parse(this.responseText);
 				mvc.view.partial.blogList.addBlog(data.item);
 				mvc.view.mainList.reload();
