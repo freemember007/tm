@@ -9,8 +9,8 @@ mvc.view.partial.blogList = (function(){
 			top: 5
 		});
 		var monthd = Ti.UI.createLabel({
-			color:'#f7f7f7',
-			font:{fontSize:10, fontWeight:'bold', fontFamily:'Arial'},
+			color:'#fff',
+			font:{fontSize: 10, fontWeight: 'bold', fontFamily:'Arial'},
 			left: 0,
 			top: 1,
 			height: 20,
@@ -19,8 +19,8 @@ mvc.view.partial.blogList = (function(){
 			text: month + "月"
 		});
 		var dayd = Ti.UI.createLabel({
-			color:'#bcbcbc',
-			font:{fontSize:24, fontWeight:'bold', fontFamily:'Arial'},
+			color:'#bbb',
+			font:{fontFamily:'HelveticaNeue-CondensedBlack', fontSize:24, fontWeight:'bold'},
 			left: 0,
 			top: 25,
 			height: 20,
@@ -36,7 +36,8 @@ mvc.view.partial.blogList = (function(){
 	function createRow(img, content){
 		var row = Ti.UI.createTableViewRow({
 			height: 'auto',
-			backgroundColor: '#f0f0f0'
+			backgroundColor: '#f0f0f0',
+			top: -60
 		});
 		row.selectedBackgroundColor = '#f0f0f0';
 		
@@ -109,32 +110,34 @@ mvc.view.partial.blogList = (function(){
 		return row;
 	};
 	
+	var sections = [];
+	
 	function createTr(img, content, month, day){
-		var dateView = dateLabelView(month, day);
 		var row = createRow(img, content);
-		row.add(dateView);
-		//var header = Ti.UI.createView({
-		//	height: 60,
-		//	width: 320
-		//});
-		//header.add(dateView);
 		
-		//var section = Ti.UI.createTableViewSection();
-		//section.headerView = header;
+		var header = Ti.UI.createView({
+			height: 60,
+			width: 320
+		});
+		var dateView = dateLabelView(month, day);
+		header.add(dateView);
 		
-		//section.add(createRow(img));
+		var section = Ti.UI.createTableViewSection();
+		section.headerView = header;
 		
-		return row;
+		section.add(row);
+		
+		sections.push(section);
 	}
 	
 	var dataSource = []
 	
 	function data(){
-		var data =[];
+		sections = [];
 		for(var i = 0; i < dataSource.length; i++){
-			data.push(createTr(dataSource[i].image, dataSource[i].content, dataSource[i].month, dataSource[i].day));
+			createTr(dataSource[i].image, dataSource[i].content, dataSource[i].month, dataSource[i].day);
 		}
-		return data;
+		return sections;
 	}
 	
 	function setItems(items){

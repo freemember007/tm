@@ -4,84 +4,14 @@ mvc.view.publishPhoto = (function(){
 	
 	var imgSrc, imgDst;
 	
-	var win = Ti.UI.createView({
-		left: 0,
-		top: 460,
-		width: 320,
-		height: 460,
-		backgroundColor: '#fafafa',
-		zIndex: 2000
-	});
-	
 	var imgView = Ti.UI.createImageView({
 		left: 100,
 		top: 10,
 		width: 'auto',
 		height: 'auto'
 	});
-	
-	function top(){
-		var topView = Ti.UI.createView({
-			top: 0,
-			height: 44,
-			width: 320,
-			backgroundImage: '/assets/publish_photo_top_bg.png'
-		});
-		
-		var back = Ti.UI.createLabel({
-			top: 0,
-			height: 44,
-			left: 0,
-			width: 60
-		})
-		
-		var publish = Ti.UI.createLabel({
-			top: 0,
-			height: 44,
-			width: 60,
-			right: 0
-		});
-		
-		back.addEventListener('click', function(){
-			Ani.close_view_slide(win, 'bottom');
-		});
-		
-		publish.addEventListener('click', function(){
-			util.net.send('api/uploadPhoto', {photo:imgDst, id:Titanium.App.Properties.getString("userid")}, function(){
-				var data = JSON.parse(this.responseText);
-				mvc.view.partial.blogList.addBlog(data.item);
-				mvc.view.mainList.reload();
-			})
-			Ani.close_view_slide(win, 'bottom');
-		});
-		
-		topView.add(back);
-		topView.add(publish);
-		return topView;
-	}
-	
-	function content(){
-		var scrollView = Ti.UI.createScrollView({
-			top: 44,
-			left: 0,
-			width: 320,
-			height: '100%'
-		})
-		scrollView.add(imgView);
-		
-		win.add(top());
-		win.add(scrollView);
-		
-		return win;
-	}
-	
-	function computeWidthHeight(width, height){
-		var fw = 120;
-		var r = width / fw;
-		var fh = height / r;
-	}
 
-	function show(img){
+	function computeImageSize(img){
 		imgSrc = img;
 		imgView.setImage(imgSrc);
 		
@@ -102,12 +32,67 @@ mvc.view.publishPhoto = (function(){
 		dstImgView.height = h*(800/w);
 		
 		imgDst = dstImgView.toImage();
+	}
+	
+	function show(img){
+		var win = Titanium.UI.createWindow({
+			backgroundColor:'#f4f4f4',
+			title:'纪录这一刻'
+		});
 		
-		Ani.open_view_slide(win, 'top');
+		var textarea = Ti.UI.createTextArea({
+			top: 0,
+			left: 0,
+			width: 320,
+			editable:true,
+			font:{
+				fontSize: 14
+			}
+		});
+		computeImageSize(img);
+		
+		var scrollView = Ti.UI.createScrollView({
+			top: imgView.height + 20,
+			left: 0,
+			width: 320,
+			height: '100%'
+		})
+
+		scrollView.add(textarea);
+		
+		var back = Titanium.UI.createButton({
+			title:'返回',
+			style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+		});
+		back.addEventListener('click',function(){
+			textarea.blur();
+			win.close();
+		});
+		
+		var publish = Titanium.UI.createButton({
+			title:'发布',
+			style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN
+		});
+		publish.addEventListener('click',function(){
+			textarea.blur();
+			win.close();
+			util.net.send('api/uploadPhoto', {photo:imgDst, id:Titanium.App.Properties.getString("userid")}, function(){
+				var data = JSON.parse(this.responseText);
+				mvc.view.partial.blogList.addBlog(data.item);
+				mvc.view.mainList.reload();
+			})
+		});
+		
+		win.setLeftNavButton(back);
+		win.setRightNavButton(publish);
+		
+		win.add(imgView);
+		win.add(scrollView);
+		win.open({modal:true});
+		textarea.focus();
 	}
 	
 	return {
-		content: content,
 		show: show
 	}
 	

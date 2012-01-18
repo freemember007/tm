@@ -12,7 +12,7 @@ mvc.view.partial.monthList = (function(){
 		var monthLabel = Ti.UI.createLabel({
 			text: i + "月",
 			top: 40 + 32 * (i - 1),
-			right: 0,
+			right: 7,
 			width: 40,
 			height: 20,
 			textAlign: "right",
