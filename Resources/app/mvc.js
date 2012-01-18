@@ -15,6 +15,7 @@ require("app/view/_main_top");
 require("app/view/_main_bottom");
 require("app/view/_month_list");
 require("app/view/_settings");
+require("app/view/image_view");
 require("app/view/_blog_list");
 require("app/view/_photo_list");
 

@@ -61,6 +61,9 @@ mvc.view.partial.blogList = (function(){
 				left: 5,
 				height: 239
 			});
+			image.addEventListener('click', function(){
+				mvc.view.imageView.show(img);
+			});
 			commentView.add(image);
 		}
 		if(content != 'null'){
@@ -70,7 +73,7 @@ mvc.view.partial.blogList = (function(){
 			}
 			comment = Ti.UI.createLabel({
 				color: '#222',
-				font: {fontSize: 14, fontWeight: 'normal'},
+				font: {fontSize: 14, fontWeight: 'bold'},
 				top: top,
 				left: 5,
 				bottom: 10,
