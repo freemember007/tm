@@ -22,17 +22,18 @@ mvc.view.publishPhoto = (function(){
 		imgView.height = h*(120/w);
 		
 		var dstImgView = Ti.UI.createImageView({
-			left: 0,
-			top: 0,
-			image: imgSrc
+			image: imgSrc,
+			width: 800,
+			height: h*(800/w)
 		});
-		dstImgView.width = 800;
-		dstImgView.height = h*(800/w);
+		
+		Ti.API.info(w + " " + h);
+		Ti.API.info(dstImgView.width + " " + dstImgView.height)
 		
 		imgDst = dstImgView.toImage();
 	}
 	
-	function show(img){
+	function show(img, isCamera){
 		var win = Titanium.UI.createWindow({
 			backgroundColor:'#f4f4f4',
 			title:'纪录这一刻'
@@ -74,6 +75,20 @@ mvc.view.publishPhoto = (function(){
 		publish.addEventListener('click',function(){
 			textarea.blur();
 			win.close();
+			
+			if(isCamera){
+				var cameraView = Ti.UI.createImageView({
+					image: imgSrc
+				})
+	 			var d = new Date();
+	 			var nu = d.getYear() + "_" + d.getYear() + "_" + d.getMonth() + "_" + d.getDay() + "_" + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds();
+		    	var fileName = "/timenote_randomimage_" + nu + ".png";
+		        var filename1 = Titanium.Filesystem.applicationDataDirectory + fileName;
+		        var f = Titanium.Filesystem.getFile(filename1);
+		        f.write(cameraView.toBlob());
+		        Ti.Media.saveToPhotoGallery(f);
+			}
+
 			util.net.send('api/uploadPhoto', {photo:imgDst, content:textarea.value, id:Titanium.App.Properties.getString("userid")}, function(){
 				var data = JSON.parse(this.responseText);
 				mvc.view.partial.blogList.addBlog(data.item);

@@ -32,10 +32,21 @@ util.net = (function(){
 		})
 	}
 	
+	function checkOrientation(event){
+		var imageFile = event.media;
+		var imageAsTaken = Ti.UI.createImageView({
+			image: imageFile,
+			width: 'auto',
+			height: 'auto'
+		});
+		Ti.API.info(imageAsTaken.width + " " + imageAsTaken.height);
+		return imageAsTaken.toImage();
+	}
+	
 	function uploadPhoto(){
 		Ti.Media.openPhotoGallery({
 			success: function(e){
-				mvc.view.publishPhoto.show(e.media);
+				mvc.view.publishPhoto.show(checkOrientation(e), false);
 			}
 		});
 	}
@@ -44,7 +55,7 @@ util.net = (function(){
 		Ti.Media.showCamera({
 			success: function(e){
 		        Ti.Media.hideCamera();
-				mvc.view.publishPhoto.show(e.media);
+				mvc.view.publishPhoto.show(checkOrientation(e), true);
 			},
 			error: function(){
 				alert("error");

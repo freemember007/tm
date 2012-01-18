@@ -45,7 +45,7 @@ mvc.view.partial.blogList = (function(){
 			left: 56,
 			top: 0,
 			height: 'auto',
-			width: 250
+			width: 260
 		});
 		
 		var commentView = Ti.UI.createView({
@@ -53,7 +53,7 @@ mvc.view.partial.blogList = (function(){
 			top: 0,
 			bottom: 10,
 			height: 'auto',
-			width: 250,
+			width: 260,
 			backgroundColor: '#f9f9f9',
 			borderRadius: 6,
 			borderWidth: 2,
@@ -66,7 +66,7 @@ mvc.view.partial.blogList = (function(){
 				image: img,
 				top: 5,
 				left: 5,
-				height: 239
+				height: 244
 			});
 			image.addEventListener('click', function(){
 				mvc.view.imageView.show(img);
@@ -85,7 +85,7 @@ mvc.view.partial.blogList = (function(){
 				left: 5,
 				bottom: 10,
 				height: 'auto',
-				width: 242,
+				width: 247,
 				text: content,
 			});
 			commentView.add(comment);
