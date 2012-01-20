@@ -1,4 +1,4 @@
-Ti.UI.backgroundColor = '#666';
+Ti.UI.backgroundColor = '#999';
 
 var mvc = {
 	controller: {},

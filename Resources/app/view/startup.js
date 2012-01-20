@@ -5,7 +5,7 @@ mvc.view.startup = (function(){
 	});
 	
 	var actInd = Titanium.UI.createActivityIndicator({
-	    bottom: 40,
+	    bottom: 70,
 	    height: 50,
 	    width: 50,
 	    left: 135,

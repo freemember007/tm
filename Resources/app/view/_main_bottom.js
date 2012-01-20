@@ -2,34 +2,31 @@ mvc.view.partial.mainBottom = (function(){
 	var bottomView = Ti.UI.createView({
 		bottom: 0,
 		left: 40,
-		height: 60,
+		height: 59,
 		width: 320,
 		backgroundImage: "/assets/bottom_bg.png",
 		zIndex: 1000
 	});
 	
-	var camera = Ti.UI.createLabel({
-		left: 144,
+	var camera = Ti.UI.createView({
+		left: 120,
 		bottom: 0,
-		width: 32,
-		height: 42,
-		backgroundImage: "/assets/camera.png"
+		width: 80,
+		height: 59
 	})
 	
-	var text = Ti.UI.createLabel({
+	var text = Ti.UI.createView({
 		left: 40,
 		bottom: 0,
-		width: 25,
-		height: 42,
-		backgroundImage: "/assets/text.png"
+		width: 40,
+		height: 49
 	});
 	
-	var photo = Ti.UI.createLabel({
+	var photo = Ti.UI.createView({
 		right: 40,
 		bottom: 0,
-		width: 29,
-		height: 42,
-		backgroundImage: "/assets/choose_photo.png"
+		width: 40,
+		height: 49
 	});
 	
 	photo.addEventListener('click', function(){

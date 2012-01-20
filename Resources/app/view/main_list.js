@@ -55,7 +55,9 @@ mvc.view.mainList = (function(){
 		if(slide){
 			win.animate({left:-left});
 			slide = false;
+			tableView.scrollable = true;
 		}else{
+			tableView.scrollable = false;
 			win.animate({left:0});
 			slide = true;
 		}
@@ -65,9 +67,11 @@ mvc.view.mainList = (function(){
 		if(!slide){
 			win.animate({left:-left-right});
 			slide = true;
+			tableView.scrollable = false;
 		}else{
 			win.animate({left:-left});
 			slide = false;
+			tableView.scrollable = true;
 		}
 	}
 	

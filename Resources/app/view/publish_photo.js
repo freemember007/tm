@@ -4,36 +4,9 @@ mvc.view.publishPhoto = (function(){
 	
 	var imgSrc, imgDst;
 	
-	var imgView = Ti.UI.createImageView({
-		left: 100,
-		top: 10,
-		width: 'auto',
-		height: 'auto'
-	});
-
-	function computeImageSize(img){
-		imgSrc = img;
-		imgView.setImage(imgSrc);
-		
-		var w = imgView.size.width;
-		var h = imgView.size.height;
-		
-		imgView.width = 120;
-		imgView.height = h*(120/w);
-		
-		var dstImgView = Ti.UI.createImageView({
-			image: imgSrc,
-			width: 800,
-			height: h*(800/w)
-		});
-		
-		Ti.API.info(w + " " + h);
-		Ti.API.info(dstImgView.width + " " + dstImgView.height)
-		
-		imgDst = dstImgView.toImage();
-	}
+	var imgView;
 	
-	function show(img, isCamera){
+	function show(imgs, isCamera){
 		var win = Titanium.UI.createWindow({
 			backgroundColor:'#f4f4f4',
 			title:'纪录这一刻'
@@ -48,7 +21,14 @@ mvc.view.publishPhoto = (function(){
 				fontSize: 14
 			}
 		});
-		computeImageSize(img);
+		
+		imgView = Ti.UI.createImageView({
+			left: 100,
+			top: 10,
+			width: imgs.thumb.width,
+			height: imgs.thumb.height,
+			image: imgs.thumb.src
+		});
 		
 		var scrollView = Ti.UI.createScrollView({
 			top: imgView.height + 20,
@@ -78,7 +58,7 @@ mvc.view.publishPhoto = (function(){
 			
 			if(isCamera){
 				var cameraView = Ti.UI.createImageView({
-					image: imgSrc
+					image: imgs.img.src
 				})
 	 			var d = new Date();
 	 			var nu = d.getYear() + "_" + d.getYear() + "_" + d.getMonth() + "_" + d.getDay() + "_" + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds();
@@ -88,9 +68,9 @@ mvc.view.publishPhoto = (function(){
 		        f.write(cameraView.toBlob());
 		        Ti.Media.saveToPhotoGallery(f);
 			}
-
-			util.net.send('api/uploadPhoto', {photo:imgDst, content:textarea.value, id:Titanium.App.Properties.getString("userid")}, function(){
-				var data = JSON.parse(this.responseText);
+			
+			util.net.send('api/uploadPhoto', {photo:imgs.img.src, content:textarea.value, id:Titanium.App.Properties.getString("userid")}, function(res){
+				var data = JSON.parse(res);
 				mvc.view.partial.blogList.addBlog(data.item);
 				mvc.view.mainList.reload();
 			})

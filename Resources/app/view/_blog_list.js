@@ -34,26 +34,12 @@ mvc.view.partial.blogList = (function(){
 	};
 	
 	function createRow(img, content){
-		var row = Ti.UI.createTableViewRow({
-			height: 'auto',
-			backgroundColor: '#f0f0f0',
-			top: -60
-		});
-		row.selectedBackgroundColor = '#f0f0f0';
-		
-		var rowView = Ti.UI.createView({
-			left: 56,
-			top: 0,
-			height: 'auto',
-			width: 260
-		});
-		
 		var commentView = Ti.UI.createView({
 			left: 0,
 			top: 0,
 			bottom: 10,
+			width: 255,
 			height: 'auto',
-			width: 260,
 			backgroundColor: '#f9f9f9',
 			borderRadius: 6,
 			borderWidth: 2,
@@ -66,7 +52,7 @@ mvc.view.partial.blogList = (function(){
 				image: img,
 				top: 5,
 				left: 5,
-				height: 244
+				height: 240
 			});
 			image.addEventListener('click', function(){
 				mvc.view.imageView.show(img);
@@ -85,7 +71,7 @@ mvc.view.partial.blogList = (function(){
 				left: 5,
 				bottom: 10,
 				height: 'auto',
-				width: 247,
+				width: 240,
 				text: content,
 			});
 			commentView.add(comment);
@@ -98,14 +84,14 @@ mvc.view.partial.blogList = (function(){
 			backgroundImage: "/assets/arrow.png",
 			zIndex: 100
 		});
-		var share = Ti.UI.createLabel({
+		var share = Ti.UI.createView({
 			backgroundImage: "/assets/share.png",
 			width: 16,
 			height: 16,
 			right: 45,
 			bottom: 0
 		});
-		var del = Ti.UI.createLabel({
+		var del = Ti.UI.createView({
 			backgroundImage: "/assets/delete.png",
 			width: 15,
 			height: 15,
@@ -113,13 +99,24 @@ mvc.view.partial.blogList = (function(){
 			bottom: 0
 		});
 		
-		rowView.height = commentView.height + 40;
+		var rowView = Ti.UI.createView({
+			left: 56,
+			top: 0,
+			height: commentView.height + 30,
+			width: 255,
+			backgroundColor: '#333'
+		});
 		
 		rowView.add(commentView);
 		rowView.add(arrow);
 		rowView.add(share);
 		rowView.add(del);
 		
+		var row = Ti.UI.createTableViewRow({
+			backgroundColor: '#f0f0f0',
+			selectedBackgroundColor: '#f0f0f0',
+			height: rowView.height
+		});
 		row.add(rowView);
 		return row;
 	};
@@ -132,19 +129,10 @@ mvc.view.partial.blogList = (function(){
 		var section = sections[month + "-" + day];
 		if(section == undefined){
 			var header = Ti.UI.createView({
-				height: 60,
+				height: 1,
 				width: 320
 			});
 			var dateView = dateLabelView(month, day);
-			var bg = Ti.UI.createView({
-				left: 0,
-				top: 0,
-				width: 320,
-				height: 60,
-				backgroundColor: '#aaa',
-				opacity: 0.1
-			});
-			header.add(bg);
 			header.add(dateView);
 			
 			section = Ti.UI.createTableViewSection();
