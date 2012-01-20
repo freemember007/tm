@@ -1,11 +1,11 @@
 mvc.view.mainList = (function(){
 	
-	var left = 40;
+	var left = 45;
 	var right = 150;
 	
 	var win = Ti.UI.createWindow({
 		backgroundColor: '#666',
-		width: 510,
+		width: 515,
 		left: -left
 	});
 	

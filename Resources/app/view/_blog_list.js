@@ -36,14 +36,14 @@ mvc.view.partial.blogList = (function(){
 	function createRow(img, content){
 		var commentView = Ti.UI.createView({
 			left: 0,
-			top: 0,
+			top: 5,
 			bottom: 10,
 			width: 255,
 			height: 'auto',
 			backgroundColor: '#f9f9f9',
-			borderRadius: 6,
-			borderWidth: 2,
-			borderColor: '#fff'
+			borderRadius: 4,
+			borderWidth: 1,
+			borderColor: '#dcdcdc'
 		});
 		
 		var image, comment;
@@ -51,8 +51,10 @@ mvc.view.partial.blogList = (function(){
 			image = Ti.UI.createImageView({
 				image: img,
 				top: 5,
+				bottom: 5,
 				left: 5,
-				height: 240
+				height: 245,
+				width: 245
 			});
 			image.addEventListener('click', function(){
 				mvc.view.imageView.show(img);
@@ -60,7 +62,7 @@ mvc.view.partial.blogList = (function(){
 			commentView.add(image);
 		}
 		if(content != 'null'){
-			var top = 10;
+			var top = 10, bottom = 10;
 			if(img != 'null'){
 				top = image.height + 15;
 			}
@@ -68,12 +70,15 @@ mvc.view.partial.blogList = (function(){
 				color: '#222',
 				font: {fontSize: 14, fontWeight: 'bold'},
 				top: top,
-				left: 5,
+				left: 10,
 				bottom: 10,
 				height: 'auto',
-				width: 240,
+				width: 235,
 				text: content,
 			});
+			if(img != 'null'){
+				image.bottom = comment.height + 10;
+			}
 			commentView.add(comment);
 		}
 		var arrow = Ti.UI.createView({
@@ -89,26 +94,24 @@ mvc.view.partial.blogList = (function(){
 			width: 16,
 			height: 16,
 			right: 45,
-			bottom: 0
+			bottom: 5
 		});
 		var del = Ti.UI.createView({
 			backgroundImage: "/assets/delete.png",
 			width: 15,
 			height: 15,
 			right: 10,
-			bottom: 0
+			bottom: 5
 		});
 		
 		var rowView = Ti.UI.createView({
 			left: 56,
 			top: 0,
-			height: commentView.height + 30,
-			width: 255,
-			backgroundColor: '#333'
+			height: 'auto',
+			width: 255
 		});
-		
+		commentView.bottom = 25;
 		rowView.add(commentView);
-		rowView.add(arrow);
 		rowView.add(share);
 		rowView.add(del);
 		

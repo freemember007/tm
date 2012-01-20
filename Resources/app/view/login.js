@@ -90,6 +90,11 @@ mvc.view.login = (function(){
 		win.open({
 			transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT
 		});
+		
+		setTimeout(function(){
+			usernameView.field.focus();
+		}, 1000);
+		
 	}
 	
 	function close(){

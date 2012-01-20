@@ -1,7 +1,7 @@
 mvc.view.partial.mainBottom = (function(){
 	var bottomView = Ti.UI.createView({
 		bottom: 0,
-		left: 40,
+		left: 45,
 		height: 59,
 		width: 320,
 		backgroundImage: "/assets/bottom_bg.png",

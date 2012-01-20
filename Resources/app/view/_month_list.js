@@ -13,7 +13,7 @@ mvc.view.partial.monthList = (function(){
 		right: 0,
 		width: 5,
 		height: 460,
-		backgroundImage: 'left_shadow.png'
+		backgroundImage: '/assets/left_shadow.png'
 	});
 	monthList.add(shadow);
 	

@@ -11,7 +11,7 @@ util.net = (function(){
 	function send(url, data, onload){
 		var networkType = Ti.Network.getNetworkType();
 		if(networkType == Ti.Network.NETWORK_NONE){
-			alert('can not connection internet!');
+			alert('无可用网络!');
 			return;
 		}
 		var xhr = Titanium.Network.createHTTPClient();
@@ -20,7 +20,6 @@ util.net = (function(){
 		        alert(e);
 		        alert(this.status);
 		    }else{
-		    	//alert(this.responseText);
         		onload(this.responseText);
 		    }
         };
@@ -32,7 +31,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		send('api/login', {email: 'lnz013@gmail.com', password: 'secret'}, function(res){
+		send('api/login', {email: email, password: password}, function(res){
 			var data = JSON.parse(res);
 			if(data.type == "success"){
 				Titanium.App.Properties.setString("userid", data.id + '');

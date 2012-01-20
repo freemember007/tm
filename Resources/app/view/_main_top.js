@@ -37,23 +37,6 @@ mvc.view.partial.mainTop = (function(){
 		mvc.view.mainList.toggleSettings();
 	});
 	
-	testButton.addEventListener('click', function(){
-		mvc.view.partial.mainTop.animate({top: -45, duration: 400})
-		mvc.view.partial.mainBottom.animate({bottom: -60, duration: 400}, function(){
-			mvc.currentListView.animate({
-				left: -320,
-				duration: 400
-			}, function(){
-				mvc.currentListView.setLeft(320);
-				mvc.currentListView.animate({left: 0, duration: 400}, function(){
-					mvc.view.partial.mainTop.animate({top: 0, duration: 400});
-					mvc.view.partial.mainBottom.animate({bottom: 0, duration: 400});
-				});
-			});
-		});
-		
-	});
-	
 	topView.add(sideButton);
 	topView.add(avatar);
 	topView.add(testButton);
