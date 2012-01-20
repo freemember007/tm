@@ -3,15 +3,14 @@ mvc.controller.startup = (function(){
 	function index(){
 		mvc.view.startup.init();
 		checkNetwork();
-		setTimeout(function() {
-		    mvc.view.login.init();
-		}, 2000);
+		mvc.view.login.init();
 	}
 	
 	function checkNetwork(){
 		var networkType = Ti.Network.getNetworkType();
 		switch(networkType){
 			case Ti.Network.NETWORK_NONE:
+				alert("当前未联网！");
 				break;
 			case Ti.Network.NETWORK_WIFI:
 				break;

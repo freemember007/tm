@@ -3,14 +3,14 @@ mvc.view.partial.blogList = (function(){
 	function dateLabelView(month, day, top){
 		var view = Ti.UI.createView({
 			backgroundImage: "/assets/date_bg.png",
-			width: 40,
-			height: 50,
+			width: 42,
+			height: 52,
 			left: 5,
 			top: 5
 		});
 		var monthd = Ti.UI.createLabel({
 			color:'#fff',
-			font:{fontSize: 10, fontWeight: 'bold', fontFamily:'Arial'},
+			font:{fontSize: 12, fontWeight: 'bold', fontFamily:'Arial'},
 			left: 0,
 			top: 1,
 			height: 20,
@@ -19,7 +19,7 @@ mvc.view.partial.blogList = (function(){
 			text: month + "月"
 		});
 		var dayd = Ti.UI.createLabel({
-			color:'#bbb',
+			color:'#888',
 			font:{fontFamily:'HelveticaNeue-CondensedBlack', fontSize:24, fontWeight:'bold'},
 			left: 0,
 			top: 25,
