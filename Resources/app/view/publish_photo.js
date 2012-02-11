@@ -99,15 +99,14 @@ mvc.view.publishPhoto = (function(){
 		
 		win.setLeftNavButton(back);
 		
-		win.add(imgView);
 		win.add(scrollView);
 		win.open({modal:true});
 		setTimeout(function(){
 			input.focus();
 			setTimeout(function(){
 				textField.focus();
-			}, 500);
-		}, 500);
+			}, 300);
+		}, 400);
 		
 	}
 	

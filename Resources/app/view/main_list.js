@@ -31,6 +31,12 @@ mvc.view.mainList = (function(){
 		});
 	}
 	
+	function close(){
+		win.close({
+			transition: Titanium.UI.iPhone.AnimationStyle.CURL_DOWN
+		});
+	}
+	
 	function reload(){
 		var data = mvc.view.partial.blogList.data();
 		data.unshift(headerRow);
@@ -77,6 +83,7 @@ mvc.view.mainList = (function(){
 	
 	return {
 		init: init,
+		close: close,
 		toggleMonthList: toggleMonthList,
 		toggleSettings: toggleSettings,
 		switchToPhotoListView: switchToPhotoListView,

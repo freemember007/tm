@@ -35,6 +35,8 @@ util.net = (function(){
 			var data = JSON.parse(res);
 			if(data.type == "success"){
 				Titanium.App.Properties.setString("userid", data.id + '');
+				Titanium.App.Properties.setString("email", data.email + '');
+				Titanium.App.Properties.setString("password", data.password + '');
 				mvc.controller.mainList.index(data.items);
 			}else if(data.type == "fail"){
 				alert("错误的邮箱名或者密码");

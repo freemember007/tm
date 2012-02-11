@@ -15,7 +15,7 @@ mvc.view.login = (function(){
 		width: 320,
 		height: 460,
 		opacity: 0.5,
-		backgroundColor: '#666',
+		backgroundColor: '#999',
 		zindex: 1000,
 	});
 	var actInd = Titanium.UI.createActivityIndicator({
@@ -23,7 +23,7 @@ mvc.view.login = (function(){
 	    height: 50,
 	    width: 50,
 	    left: 135,
-	    style: Titanium.UI.iPhone.ActivityIndicatorStyle.PLAIN,
+	    style: Titanium.UI.iPhone.ActivityIndicatorStyle.DARK,
 	    zindex: 1001,
 	});
 	
@@ -124,15 +124,14 @@ mvc.view.login = (function(){
 		
 	}
 	
-	function close(){
-		win.close({
-			transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
-		});
+	function clear(){
+		usernameView.field.value = '';
+		passwordView.field.value = '';
 	};
 	
 	return {
 		init : init,
-		close: close
+		clear: clear
 	};
 	
 })();

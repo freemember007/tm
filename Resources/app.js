@@ -1,5 +1,5 @@
 Ti.UI.backgroundColor = '#999';
-alert(Titanium.App.Properties.getString("userid"));
+
 var mvc = {
 	controller: {},
 	model: {},
@@ -11,7 +11,7 @@ var mvc = {
 
 var util = {};
 
-require("/lib/util")
+require("/lib/util");
 require("/app/mvc");
 
 mvc.init();

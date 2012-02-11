@@ -4,8 +4,13 @@ mvc.controller.login = (function(){
 		mvc.view.login.init();
 	}
 	
+	var logout = function(){
+		mvc.view.login.close();
+	}
+	
 	return {
-		index: index
+		index: index,
+		logout: logout
 	};
 	
 })();
