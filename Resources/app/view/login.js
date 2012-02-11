@@ -9,6 +9,35 @@ mvc.view.login = (function(){
 	var usernameView = labelField(50, '邮箱', false);
 	var passwordView = labelField(100, '密码', true);
 	
+	var bg_view = Ti.UI.createView({
+		top: 0,
+		left: 0,
+		width: 320,
+		height: 460,
+		opacity: 0.5,
+		backgroundColor: '#666',
+		zindex: 1000,
+	});
+	var actInd = Titanium.UI.createActivityIndicator({
+	    bottom: 70,
+	    height: 50,
+	    width: 50,
+	    left: 135,
+	    style: Titanium.UI.iPhone.ActivityIndicatorStyle.PLAIN,
+	    zindex: 1001,
+	});
+	
+	function show_loading(){
+		win.add(bg_view);
+		win.add(actInd);
+		actInd.show();
+	}
+	
+	function hide_loading(){
+		win.remove(bg_view);
+		win.remove(actInd);
+	}
+	
 	function top_view(){
 		var top_view = Ti.UI.createView({
 			top: 0,
@@ -25,15 +54,17 @@ mvc.view.login = (function(){
 		});
 		
 		login.addEventListener('click', function(){
+			show_loading();
 			usernameView.field.blur();
 			passwordView.field.blur();
-			util.net.login(usernameView.value(), passwordView.value());
+			util.net.login(usernameView.value(), passwordView.value(), hide_loading);
 		});
 		
 		top_view.add(login);
 		
 		return top_view;
 	}
+
 	
 	function content_view(){
 		var contentView = Ti.UI.createView({

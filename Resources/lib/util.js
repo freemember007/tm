@@ -41,6 +41,7 @@ util.net = (function(){
 			}else{
 				alert('unknown error');
 			}
+			callback();
 		});
 	}
 	
