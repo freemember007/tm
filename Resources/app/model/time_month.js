@@ -26,8 +26,6 @@ function TimeMonthModel(date){
 
 mvc.model.TimeMonth = (function(){
 	
-	var date;
-	
 	function create(date){
 		return new TimeMonthModel(date)
 	}

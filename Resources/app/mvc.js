@@ -1,5 +1,3 @@
-var _ = require('lib/underscore-min')._;
-
 mvc.prop = {
 	mainColor: '#f4f4f4',
 	fontColor: '#333',

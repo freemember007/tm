@@ -11,16 +11,11 @@ function UserModel(args){
 
 mvc.model.User = (function(){
 	
-	function current(){
-		
-	}
-	
-	function login(){
+	function login(args){
 		
 	}
 	
 	return {
-		current: current,
 		login: login
 	}
 	

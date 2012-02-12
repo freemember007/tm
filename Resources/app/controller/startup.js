@@ -10,7 +10,7 @@ mvc.controller.startup = (function(){
 		var networkType = Ti.Network.getNetworkType();
 		switch(networkType){
 			case Ti.Network.NETWORK_NONE:
-				alert("当前未联网！");
+				alert(L("nonetwork"));
 				break;
 			case Ti.Network.NETWORK_WIFI:
 				break;
@@ -32,8 +32,8 @@ mvc.controller.startup = (function(){
 				mvc.controller.mainList.index(data.items);
 				return true;
 			}
+			mvc.view.login.init();
 		});
-		mvc.view.login.init();
 	}
 	
 	return {

@@ -10,7 +10,12 @@ var mvc = {
 };
 
 var util = {};
+var app = {
+	net: {},
+	sys: {}
+};
 
+var _ = require('vendor/underscore-min')._;
 require("/lib/util");
 require("/app/mvc");
 
