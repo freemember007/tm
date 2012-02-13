@@ -126,21 +126,21 @@ mvc.view.partial.blogList = (function(){
 	
 	var sections = {};
 	
-	function createTr(img, content, month, day){
+	function createTr(img, content, date){
 		var row = createRow(img, content);
 		
-		var section = sections[month + "-" + day];
+		var section = sections[(date.getMonth() + 1) + "-" + date.getDate()];
 		if(section == undefined){
 			var header = Ti.UI.createView({
 				height: 1,
 				width: 320
 			});
-			var dateView = dateLabelView(month, day);
+			var dateView = dateLabelView(date.getMonth() + 1, date.getDate());
 			header.add(dateView);
 			
 			section = Ti.UI.createTableViewSection();
 			section.headerView = header;
-			sections[month + "-" + day]  = section;
+			sections[(date.getMonth() + 1) + "-" + date.getDate()]  = section;
 		}
 		section.add(row);
 	}
@@ -150,7 +150,7 @@ mvc.view.partial.blogList = (function(){
 	function data(){
 		sections = {};
 		for(var i = 0; i < dataSource.length; i++){
-			createTr(dataSource[i].image, dataSource[i].content, dataSource[i].month, dataSource[i].day);
+			createTr(dataSource[i].image, dataSource[i].content, dataSource[i].date);
 		}
 		data = [];
 		for(item in sections){
@@ -161,12 +161,12 @@ mvc.view.partial.blogList = (function(){
 	
 	function setItems(items){
 		for(var i = 0; i < items.length; i++){
-			dataSource.push({image:items[i].image, content:items[i].content, month:items[i].month, day:items[i].day});
+			dataSource.push({image:items[i].image, content:items[i].content, date: new Date(items[i].date)});
 		}
 	}
 	
 	function addBlog(item){
-		dataSource.unshift({image:item.image, content:item.content, month:item.month, day:item.day});
+		dataSource.unshift({image:item.image, content:item.content, date: new Date(item.date)});
 	}
 	
 	return {
