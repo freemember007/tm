@@ -4,6 +4,8 @@ mvc.view.startup = (function(){
 		backgroundImage: '/assets/startup_bg.png'
 	});
 	
+	var inited = false;
+	
 	var actInd = Titanium.UI.createActivityIndicator({
 	    bottom: 70,
 	    height: 50,
@@ -15,12 +17,16 @@ mvc.view.startup = (function(){
 	var init = function(){
 		win.add(actInd);
 		actInd.show();
+		inited = true;
 		
 		win.open();
 	}
 	
 	var close = function(){
-		win.close();
+		if(inited){
+			win.close();
+			inited = false;
+		}
 	};
 	
 	return {

@@ -45,7 +45,10 @@ mvc.view.partial.settings = (function(){
 		Titanium.App.Properties.setString("password", '');
 		mvc.view.login.clear();
 		setTimeout(function(){
-			mvc.view.mainList.close();
+			mvc.view.login.logout();
+			setTimeout(function(){
+				mvc.view.mainList.close();
+			}, 500);
 		}, 500);
 	});
 	

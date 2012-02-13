@@ -160,6 +160,7 @@ mvc.view.partial.blogList = (function(){
 	}
 	
 	function setItems(items){
+		dataSource = [];
 		for(var i = 0; i < items.length; i++){
 			dataSource.push({image:items[i].image, content:items[i].content, date: new Date(items[i].date)});
 		}

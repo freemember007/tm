@@ -22,20 +22,23 @@ mvc.view.mainList = (function(){
 	
 	function init(){
 		reload();
-		win.add(mvc.view.partial.settings);
-		win.add(mvc.view.partial.monthList);
-		win.add(mvc.view.partial.mainBottom);
-		win.add(tableView);
 		win.open({
 			transition: Titanium.UI.iPhone.AnimationStyle.CURL_UP
 		});
+		setTimeout(function(){
+			mvc.view.login.close();
+			mvc.view.startup.close();
+		}, 500);
 	}
 	
 	function close(){
-		win.close({
-			transition: Titanium.UI.iPhone.AnimationStyle.CURL_DOWN
-		});
+		win.close();
 	}
+	
+	win.add(mvc.view.partial.settings);
+	win.add(mvc.view.partial.monthList);
+	win.add(mvc.view.partial.mainBottom);
+	win.add(tableView);
 	
 	function reload(){
 		var data = mvc.view.partial.blogList.data();

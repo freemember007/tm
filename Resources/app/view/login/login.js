@@ -6,6 +6,8 @@ mvc.view.login = (function(){
 		backgroundColor: mvc.prop.mainColor
 	});
 	
+	var inited = false;
+	
 	var usernameView = labelField(50, '邮箱', false);
 	var passwordView = labelField(100, '密码', true);
 	
@@ -114,14 +116,23 @@ mvc.view.login = (function(){
 		return contentView;
 	}
 	
+	win.add(top_view());
+	win.add(content_view());
+	
 	function init(){
-		win.add(top_view());
-		win.add(content_view());
-		
 		win.open({
 			transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT
 		});
-		
+	}
+	
+	function logout(){
+		win.open({
+			transition: Titanium.UI.iPhone.AnimationStyle.CURL_DOWN
+		});
+	}
+	
+	function close(){
+		win.close();
 	}
 	
 	function clear(){
@@ -131,6 +142,8 @@ mvc.view.login = (function(){
 	
 	return {
 		init : init,
+		logout: logout,
+		close: close,
 		clear: clear
 	};
 	
