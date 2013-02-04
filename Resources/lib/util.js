@@ -1,6 +1,6 @@
 util.net = (function(){
 	
-	var sitePath = 'http://116.255.187.252/';
+	var sitePath = 'http://184.82.117.60/';
 	
 	var jpgcompressor = require('com.sideshowcoder.jpgcompressor');
 	Ti.API.info('module is => ' + jpgcompressor);
@@ -31,6 +31,7 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
+		alert("abc");
 		send('api/login', {email: email, password: password}, function(res){
 			var data = JSON.parse(res);
 			if(data.type == "success"){
@@ -39,7 +40,7 @@ util.net = (function(){
 				Titanium.App.Properties.setString("password", data.password + '');
 				mvc.controller.mainList.index(data.items);
 			}else if(data.type == "fail"){
-				alert("错误的邮箱名或者密码");
+				alert("eee");
 			}else{
 				alert('unknown error');
 			}

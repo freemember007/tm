@@ -1,6 +1,6 @@
 app.net = (function(){
 	
-	var sitePath = 'http://116.255.187.252/';
+	var sitePath = 'http://184.82.117.60/';
 		
 	function send(url, data, callback){
 		var networkType = Ti.Network.getNetworkType();

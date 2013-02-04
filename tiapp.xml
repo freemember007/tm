@@ -7,14 +7,14 @@
         <target device="android">false</target>
         <target device="iphone">true</target>
     </deployment-targets>
-    <sdk-version>1.8.1</sdk-version>
+    <sdk-version>3.0.0.GA</sdk-version>
     <id>me.timenote</id>
     <name>timenote</name>
     <version>1.0</version>
-    <publisher>lz</publisher>
+    <publisher>xjp</publisher>
     <url>http://timenote.me</url>
     <description>timenote.me</description>
-    <copyright>2011 by lz</copyright>
+    <copyright>2011 by xjp</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>true</prerendered-icon>
