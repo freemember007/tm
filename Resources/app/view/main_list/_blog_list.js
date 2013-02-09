@@ -54,7 +54,7 @@ mvc.view.partial.blogList = (function(){
 				bottom: 5,
 				left: 5,
 				height: 245,
-				width: 245
+				width: 'auto'
 			});
 			image.addEventListener('click', function(){
 				mvc.view.imageView.show(img);
@@ -132,8 +132,8 @@ mvc.view.partial.blogList = (function(){
 		var section = sections[(date.getMonth() + 1) + "-" + date.getDate()];
 		if(section == undefined){
 			var header = Ti.UI.createView({
-				height: 1,
-				width: 320
+				height: 54,
+				width: 320,
 			});
 			var dateView = dateLabelView(date.getMonth() + 1, date.getDate());
 			header.add(dateView);

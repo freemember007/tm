@@ -9,7 +9,8 @@ mvc.view.publishPhoto = (function(){
 	function show(imgs, isCamera){
 		var win = Titanium.UI.createWindow({
 			backgroundColor:'#f4f4f4',
-			title:'纪录这一刻'
+			title:'纪录这一刻',
+			barColor:'gray'
 		});
 		
 		imgView = Ti.UI.createImageView({
@@ -50,15 +51,15 @@ mvc.view.publishPhoto = (function(){
 			keyboardToolbar:[flexSpace, textField, flexSpace, send, flexSpace],
 			keyboardToolbarColor: '#999',	
 			keyboardToolbarHeight: 'auto',
-			visible: false
+			//visible: false
 		});
 		
-		var scrollView = Ti.UI.createScrollView({
+		var scrollView = Ti.UI.createView({
 			top: 0,
 			left: 0,
 			width: 320,
 			height: 'auto',
-        	verticalBounce:true
+        	//verticalBounce:true
 		})
 
 		scrollView.add(imgView);

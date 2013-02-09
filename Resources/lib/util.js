@@ -31,7 +31,6 @@ util.net = (function(){
 	}
 	
 	function login(email, password, callback){
-		alert("abc");
 		send('api/login', {email: email, password: password}, function(res){
 			var data = JSON.parse(res);
 			if(data.type == "success"){
@@ -40,7 +39,7 @@ util.net = (function(){
 				Titanium.App.Properties.setString("password", data.password + '');
 				mvc.controller.mainList.index(data.items);
 			}else if(data.type == "fail"){
-				alert("eee");
+				alert('用户名或密码错误！');
 			}else{
 				alert('unknown error');
 			}
@@ -62,7 +61,8 @@ util.net = (function(){
 			width: 'auto',
 			height: 'auto'
 		});
-		Ti.API.info(imageAsTaken.width + " " + imageAsTaken.height);
+		imageAsTaken = imageAsTaken.toImage() //估计是接口变了，必须加这么一句，否则，后面w,h的值都为auto，以致发布时收到的img为非图片从而出错。
+		//alert(imageAsTaken.width + " " + imageAsTaken.height);
 		
 		var w = imageAsTaken.width;
 		var h = imageAsTaken.height;
