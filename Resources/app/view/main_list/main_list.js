@@ -6,25 +6,27 @@ mvc.view.mainList = (function(){
 	var win = Ti.UI.createWindow({
 		backgroundColor: '#666',
 		width: 515,
-		left: -left
+		left: -left,
+		title:'今年',
+		barColor:'gray'
 	});
 	
 	var tableView = Titanium.UI.createTableView({
 		bottom: 44,
 		width: 320,
 		left: left,
-		backgroundColor: '#f0f0f0',
+		backgroundColor: '#eee',
 		separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
 	});
 	
 	var headerRow = Ti.UI.createTableViewRow();
-	headerRow.add(mvc.view.partial.mainTop);
+	//headerRow.add(mvc.view.partial.mainTop);
 	
 	function init(){
 		reload();
 		win.open({
 			transition: Titanium.UI.iPhone.AnimationStyle.CURL_UP
-		});
+		,modal:true});
 		setTimeout(function(){
 			mvc.view.login.close();
 			mvc.view.startup.close();
@@ -42,7 +44,7 @@ mvc.view.mainList = (function(){
 	
 	function reload(){
 		var data = mvc.view.partial.blogList.data();
-		data.unshift(headerRow);
+		//data.unshift(headerRow);
 		tableView.setData(data);
 	}
 	
